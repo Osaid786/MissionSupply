@@ -4,6 +4,7 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
+var packageBody_options,ground_options;
 
 function preload()
 {
@@ -31,13 +32,13 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
     
-	 var packageBody_options={restitution:0.6, isStatic:false}
-	packageBody = Bodies.circle(width/2 , 200 , 5 ,packageBody_options );
-	World.add(world, packageBody);
-	
+	 
+   packageBody_options={restitution:0.6, isStatic:true}
+	  packageBody = Bodies.circle(width/2 , 200 , 5 ,packageBody_options );
+	  World.add(world, packageBody);
 
 	//Create a Ground
-	var ground_options={isStatic:true}
+	 ground_options={isStatic:true}
 	ground = Bodies.rectangle(width/2, 650, width, 10 , ground_options  );
  	World.add(world, ground);
 
@@ -54,16 +55,20 @@ function draw() {
   background(0);
   packageSprite.x= packageBody.position.x 
   packageSprite.y= packageBody.position.y 
-  drawSprites();
+  
+  keypressed();
+   
+   drawSprites();
  
 }
 
-function keyPressed() {
- if (keyCode === DOWN_ARROW) {
-    // Look at the hints in the document and understand how to make the package body fall only on
-    
+
+function keypressed() {
+	
+if (keyDown("Down_Arrow")) {
+	   packageBody_options={restitution:0.6, isStatic:false}
+	  packageBody = Bodies.circle(width/2 , 200 , 5 ,packageBody_options );
+	  World.add(world, packageBody);
   }
 }
-
-
 
